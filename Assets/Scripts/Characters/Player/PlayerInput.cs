@@ -20,6 +20,13 @@ public class PlayerInput : MonoBehaviour
         {
             _player.Strike();
         }
+
+#if DEBUG
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Damage.ApplyGenericDamage(_player.gameObject, 2);
+        }
+#endif
     }
 
 }

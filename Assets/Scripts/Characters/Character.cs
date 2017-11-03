@@ -2,7 +2,10 @@
 
 public class Character : Damagable
 {
-    public int MaxHealth = 100;
+    [SerializeField]
+    private int _maxHealth = 20;
+
+    public int MaxHealth { get { return _maxHealth; } }
     public int Health { get; protected set; }
     public float InvincibleTimeframe = 1f;
     protected float _lastTimeDamaged = -1000f;

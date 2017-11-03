@@ -30,6 +30,11 @@ public class PlayerController : Character
         }
     }
 
+    protected override void OnDeath()
+    {
+        Debug.Log("you dead!");
+    }
+
     public void Strike()
     {
         if (Struck != null)

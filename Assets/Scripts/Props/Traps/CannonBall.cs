@@ -9,4 +9,8 @@ public class CannonBall : MonoBehaviour
     {
         transform.position += transform.forward * _moveSpeed * Time.deltaTime;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Damage.ApplyGenericDamage(other.gameObject, 4);
+    }
 }
