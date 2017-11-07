@@ -26,6 +26,10 @@ public class PlayerInput : MonoBehaviour
         {
             Damage.ApplyGenericDamage(_player.gameObject, 2);
         }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            _player.Movement.Knockback(Vector3.forward * 10);
+        }
 #endif
     }
 
