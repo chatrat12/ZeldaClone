@@ -6,6 +6,12 @@ public class PlayerMovement
     public float RunSpeed { get { return _runSpeed; } }
     public bool CanMove { get; set; }
 
+    public Vector3 Velocity
+    {
+        get { return _rigidbody.velocity; }
+        set { _rigidbody.velocity = value; }
+    }
+
     [SerializeField]
     private float _runSpeed = 10f;
     [SerializeField]

@@ -17,7 +17,6 @@ public class CannonBall : MonoBehaviour
             if (player.CanDamage)
             {
                 // TODO: implement knockback system to handle this.
-                Debug.Log("knock back");
                 var direction = (player.transform.position - transform.position).normalized;
                 direction = (direction + transform.forward * 3).normalized;
                 player.Movement.Knockback(direction * 30);
