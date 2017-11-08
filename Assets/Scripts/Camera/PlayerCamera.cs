@@ -18,16 +18,23 @@ public class PlayerCamera : MonoBehaviour
         _camera = GetComponent<Camera>();
         var player = GetComponentInParent<PlayerController>();
         player.EnteredCameraVolume += Player_EnteredCameraVolume;
+        player.LeftCameraVolume += Player_LeftCameraVolume;
 
         _offset = transform.localPosition;
         _target = transform.parent;
         transform.SetParent(null);
     }
 
+    
     private void Player_EnteredCameraVolume(CameraVolume cameraVolume)
     {
         _currentVolume = cameraVolume;
     }
+    private void Player_LeftCameraVolume(CameraVolume cameraVolume)
+    {
+        //_currentVolume = null;
+    }
+
 
     private void LateUpdate()
     {

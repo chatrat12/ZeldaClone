@@ -29,8 +29,11 @@ public class Character : Damagable
     }
     protected virtual void OnDeath()
     {
+        OnDestroy();
+    }
+    protected virtual void OnDestroyed()
+    {
         Destroy(this.gameObject);
-
     }
 
     protected override void OnTookDamage(float baseDamage, GameObject damageCauser, DamageType damageType)
