@@ -2,6 +2,10 @@
 
 public class PlayerController : Character
 {
+    public delegate void CameraVolumeEvent(CameraVolume cameraVolume);
+    public event CameraVolumeEvent EnteredCameraVolume;
+    public event CameraVolumeEvent LeftCameraVolume;
+
     public event System.EventHandler Struck;
 
     [SerializeField]
@@ -56,5 +60,24 @@ public class PlayerController : Character
     {
         if (Struck != null)
             Struck(this, null);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var cameraVolume = other.GetComponent<CameraVolume>();
+        if(cameraVolume != null)
+        {
+            if (EnteredCameraVolume != null)
+                EnteredCameraVolume(cameraVolume);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        var cameraVolume = other.GetComponent<CameraVolume>();
+        if (cameraVolume != null)
+        {
+            if (LeftCameraVolume != null)
+                LeftCameraVolume(cameraVolume);
+        }
     }
 }
