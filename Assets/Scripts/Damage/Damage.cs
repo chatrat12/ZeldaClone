@@ -11,7 +11,7 @@ public static class Damage
             damagable.TakeGenericDamage(baseDamage, damageCauser);
     }
 
-    public static void ApplyPointDamage(GameObject target, float baseDamage, GameObject damageCauser = null, Vector3 hitDirection = default(Vector3), float force = 0, RaycastHit hitInfo = default(RaycastHit))
+    public static void ApplyPointDamage(GameObject target, float baseDamage, GameObject damageCauser = null, Vector3 hitDirection = default(Vector3), float force = 0, RaycastHit? hitInfo = null)
     {
         var damagable = target.GetComponent<Damagable>();
         if (damagable != null)

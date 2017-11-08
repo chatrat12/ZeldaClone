@@ -5,7 +5,7 @@ using UnityEngine;
 public class Damagable : MonoBehaviour
 {
     public delegate void TakeDamageEvent(float baseDamage, GameObject damageCauser, DamageType damageType);
-    public delegate void TakePointDamageEvent(float baseDamage, GameObject damageCauser, Vector3 hitDirection, float force, RaycastHit hitInfo);
+    public delegate void TakePointDamageEvent(float baseDamage, GameObject damageCauser, Vector3 hitDirection, float force, RaycastHit? hitInfo);
     public delegate void TakeRadialDamageEvent(float baseDamage, GameObject damageCauser, Vector3 origin, float radius, float force);
 
     public event TakeDamageEvent TookDamage;
@@ -18,7 +18,7 @@ public class Damagable : MonoBehaviour
         OnTookDamage(baseDamage, damageCauser, DamageType.Generic);
     }
 
-    public void TakePointDamage(float baseDamage, GameObject damageCauser = null, Vector3 hitDirection = default(Vector3), float force = 0f, RaycastHit hitInfo = default(RaycastHit))
+    public void TakePointDamage(float baseDamage, GameObject damageCauser = null, Vector3 hitDirection = default(Vector3), float force = 0f, RaycastHit? hitInfo = null)
     {
         OnTookPointDamage(baseDamage, damageCauser, hitDirection, force, hitInfo);
     }
@@ -33,7 +33,7 @@ public class Damagable : MonoBehaviour
         if (TookDamage != null)
             TookDamage(baseDamage, damageCauser, DamageType.Generic);
     }
-    protected virtual void OnTookPointDamage(float baseDamage, GameObject damageCauser, Vector3 hitDirection, float force, RaycastHit hitInfo)
+    protected virtual void OnTookPointDamage(float baseDamage, GameObject damageCauser, Vector3 hitDirection, float force, RaycastHit? hitInfo)
     {
 
         OnTookDamage(baseDamage, damageCauser, DamageType.Point);

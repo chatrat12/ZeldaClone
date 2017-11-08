@@ -13,7 +13,6 @@ public class PlayerController : Character
 
     public PlayerMovement Movement { get { return _movement; } }
 
-    private Sword _sword;
     private Vector3 _lastGroundedPosition;
     private SolidGroundDetector _groundDetector;
 
@@ -21,9 +20,6 @@ public class PlayerController : Character
     {
         base.Awake();
         _movement.Initialize(this);
-
-        _sword = GetComponentInChildren<Sword>();
-        GetComponent<PlayerAnimationEvents>().EventTriggered += PlayerController_EventTriggered;
 
         _lastGroundedPosition = transform.position;
         _groundDetector = GetComponent<SolidGroundDetector>();
@@ -34,16 +30,6 @@ public class PlayerController : Character
             _lastGroundedPosition = transform.position;
         _movement.Update();
         base.Update();
-    }
-
-    private void PlayerController_EventTriggered(PlayerAnimationEvents.EventType type)
-    {
-        switch(type)
-        {
-            case PlayerAnimationEvents.EventType.Strike:
-                _sword.StrikeObjectsInVolume();
-                break;
-        }
     }
 
     protected override void OnDeath()

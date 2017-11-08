@@ -10,6 +10,16 @@ public class PlayerAnimationEvents : MonoBehaviour
         TriggerEvent(EventType.Strike);
     }
 
+    private void TriggerOpenStrikeWindow()
+    {
+        TriggerEvent(EventType.OpenStrikeWindow);
+
+    }
+    private void TriggerCloseStrikeWindow()
+    {
+        TriggerEvent(EventType.CloseStrikeWindow);
+    }
+
     private void TriggerEvent(EventType type)
     {
         if (EventTriggered != null)
@@ -19,6 +29,8 @@ public class PlayerAnimationEvents : MonoBehaviour
 	
     public enum EventType
     {
-        Strike
+        Strike,
+        OpenStrikeWindow,
+        CloseStrikeWindow
     }
 }
