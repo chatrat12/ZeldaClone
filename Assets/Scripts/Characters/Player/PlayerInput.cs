@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class PlayerInput : MonoBehaviour
 {
     private PlayerController _player;

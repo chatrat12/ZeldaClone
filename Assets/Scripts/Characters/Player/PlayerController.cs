@@ -32,6 +32,7 @@ public class PlayerController : Character
     {
         if (_groundDetector.OnSolidGround)
             _lastGroundedPosition = transform.position;
+        _movement.Update();
         base.Update();
     }
 
