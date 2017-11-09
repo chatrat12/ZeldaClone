@@ -36,16 +36,16 @@ public class InteractionFinder : MonoBehaviour
 
     private bool LookingAtObject(GameObject obj)
     {
-        //return true;
-        var refDirection = obj.transform.position - transform.position;
-        refDirection.y = 0;
-        refDirection.Normalize();
-        var lookDirection = transform.forward;
-        lookDirection.y = 0;
-        lookDirection.Normalize();
+        return true;
+        //var refDirection = obj.transform.position - transform.position;
+        //refDirection.y = 0;
+        //refDirection.Normalize();
+        //var lookDirection = transform.forward;
+        //lookDirection.y = 0;
+        //lookDirection.Normalize();
 
-        var dot = Vector3.Dot(refDirection, lookDirection);
-        return dot > 0.5;
+        //var dot = Vector3.Dot(refDirection, lookDirection);
+        //return dot > 0.5;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,10 +66,5 @@ public class InteractionFinder : MonoBehaviour
             if (_overlappingInteracables.Contains(interactable))
                 _overlappingInteracables.Remove(interactable);
         }
-    }
-
-    private void OnGUI()
-    {
-        GUILayout.Label(string.Format("Interactables: {0}", _overlappingInteracables.Count));
     }
 }
