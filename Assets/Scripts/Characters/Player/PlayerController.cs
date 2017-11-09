@@ -15,6 +15,7 @@ public class PlayerController : Character
 
     private Vector3 _lastGroundedPosition;
     private SolidGroundDetector _groundDetector;
+    private InteractionFinder _interactionFinder;
 
     protected override void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerController : Character
 
         _lastGroundedPosition = transform.position;
         _groundDetector = GetComponent<SolidGroundDetector>();
+        _interactionFinder = GetComponent<InteractionFinder>();
     }
     protected override void Update()
     {
@@ -47,6 +49,12 @@ public class PlayerController : Character
     {
         if (Struck != null)
             Struck(this, null);
+    }
+    public void Interact()
+    {
+        var interaction = _interactionFinder.GetViableInteraction();
+        if (interaction != null)
+            interaction.Interact(this);
     }
 
     private void OnTriggerEnter(Collider other)

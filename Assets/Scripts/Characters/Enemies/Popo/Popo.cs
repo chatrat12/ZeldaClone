@@ -42,6 +42,12 @@ public class Popo : Enemy
         base.Update();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        _chasing = true;
+        _toggleChaseTime = Time.time + _chaseTime.GetRandom();
+    }
     protected override void OnDisable()
     {
         base.OnDisable();

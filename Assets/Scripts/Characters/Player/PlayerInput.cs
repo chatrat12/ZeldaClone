@@ -21,17 +21,17 @@ public class PlayerInput : MonoBehaviour
         {
             _player.Strike();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _player.Interact();
+        }
 
 #if DEBUG
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Damage.ApplyGenericDamage(_player.gameObject, 2);
         }
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            _player.Movement.Knockback(Vector3.forward * 10);
-
-        }
+        
         if (Input.GetKeyDown(KeyCode.R))
         {
             _player.Movement.AutoWalkTo(Vector3.forward * 5);
