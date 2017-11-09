@@ -20,9 +20,9 @@ public class Character : Damagable
     }
     protected virtual void Update() { }
     protected virtual void FixedUpdate() { }
-    protected virtual void OnDestroy()
-    {
-    }
+    protected virtual void OnDestroy() { }
+    protected virtual void OnEnable() { }
+    protected virtual void OnDisable() { }
     protected void Kill()
     {
         OnDeath();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Popo : Character
+public class Popo : Enemy
 {
 
     [SerializeField]
@@ -42,6 +42,13 @@ public class Popo : Character
         base.Update();
     }
 
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        _movement.Velocity = Vector3.zero;
+        WarpToSpawn();
+    }
+
     private void ChaseTarget()
     {
         var direction = _target.transform.position - transform.position;
@@ -66,6 +73,8 @@ public class Popo : Character
 
     protected override void OnTookDamage(float baseDamage, GameObject damageCauser, DamageType damageType)
     {
+        if (!enabled)
+            return;
         if(damageCauser != null)
         {
             var direction = transform.position - _target.transform.position;

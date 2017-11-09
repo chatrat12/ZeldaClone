@@ -13,19 +13,19 @@ public class CharacterMovement
     }
 
     [SerializeField]
-    private float _runSpeed = 10f;
+    protected float _runSpeed = 10f;
     [SerializeField]
-    private float _knockbackTime = 0.5f;
+    protected float _knockbackTime = 0.5f;
     [SerializeField]
-    private bool _lookTowardsVelocity = true;
+    protected bool _lookTowardsVelocity = true;
 
-    private Character _character;
-    private Rigidbody _rigidbody;
+    protected Character _character;
+    protected Rigidbody _rigidbody;
 
-    private float _timeKnockedBack = -1000f;
-    private Vector3 _knockbackDampeningVelocity = Vector3.zero;
+    protected float _timeKnockedBack = -1000f;
+    protected Vector3 _knockbackDampeningVelocity = Vector3.zero;
 
-    private Vector3 _moveDirection = Vector3.zero;
+    protected Vector3 _moveDirection = Vector3.zero;
 
     private bool _beingKnockedback
     {
@@ -43,7 +43,7 @@ public class CharacterMovement
         CanMove = true;
     }
 
-    public void Initialize(Character character)
+    public virtual void Initialize(Character character)
     {
         _character = character;
         _rigidbody = character.GetComponent<Rigidbody>();
@@ -55,7 +55,7 @@ public class CharacterMovement
         _rigidbody.velocity = force;
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (_beingKnockedback)
         {
@@ -74,7 +74,7 @@ public class CharacterMovement
         _moveDirection = Vector3.zero;
     }
 
-    public void Move(Vector3 direction)
+    public virtual void Move(Vector3 direction)
     {
         _moveDirection = direction;
     }

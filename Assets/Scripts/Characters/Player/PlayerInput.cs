@@ -30,6 +30,11 @@ public class PlayerInput : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             _player.Movement.Knockback(Vector3.forward * 10);
+
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _player.Movement.AutoWalkTo(Vector3.forward * 5);
         }
 #endif
     }
