@@ -3,12 +3,14 @@
 public class OrbSwitch : Mechanism
 {
     [SerializeField]
+    private bool _deactivateAfterTime;
+    [SerializeField]
+    private float _deactivateTime;
+
+    [SerializeField]
     private Renderer[] _glassRenderers;
     [SerializeField]
     private float _emissionLevel = 0f;
-
-    [SerializeField]
-    private bool _togglable = false;
 
     private Material[] _glassMaterials;
     private Color[] _ogEmissionColors;
@@ -16,6 +18,8 @@ public class OrbSwitch : Mechanism
     private Animator _animator;
 
     private float _previousEmissionLevel = 0f;
+    private float _timeToDeactiavte;
+    private bool _activated = false;
 
     private void Awake()
     {
@@ -36,8 +40,14 @@ public class OrbSwitch : Mechanism
 
     private void _damagable_TookDamage(float baseDamage, GameObject damageCauser, DamageType damageType)
     {
-        _animator.SetTrigger("Activate");
-        OnActivate();
+        if (!_activated)
+        {
+            _animator.SetTrigger("Activate");
+            _activated = true;
+            if (_deactivateAfterTime)
+                _timeToDeactiavte = Time.time + _deactivateTime;
+            OnActivate();
+        }
     }
 
     private void Update()
@@ -46,6 +56,15 @@ public class OrbSwitch : Mechanism
         {
             SetGlassEmission(_emissionLevel);
             _previousEmissionLevel = _emissionLevel;
+        }
+        if(_deactivateAfterTime && _activated)
+        {
+            if(Time.time >= _timeToDeactiavte)
+            {
+                _animator.SetTrigger("Deactivate");
+                _activated = false;
+                OnDeactivate();
+            }
         }
     }
 

@@ -14,5 +14,9 @@ public class ActivateAnimationWithMechanism : MonoBehaviour
         {
             _animator.SetTrigger("Activate");
         };
+        _mechanism.Deactivated += delegate
+        {
+            _animator.SetTrigger("Deactivate");
+        };
     }
 }
