@@ -69,6 +69,7 @@ public class SolidGroundDetector : MonoBehaviour
         return result;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         if (_sensorPoints == null) return;
@@ -80,4 +81,5 @@ public class SolidGroundDetector : MonoBehaviour
         }
         Gizmos.matrix = Matrix4x4.identity;
     }
+#endif
 }
