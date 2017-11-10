@@ -87,7 +87,6 @@ public class Popo : Enemy
             direction.y = 0;
             direction.Normalize();
             _movement.Knockback(direction * 25);
-
         }
         base.OnTookDamage(baseDamage, damageCauser, damageType);
     }

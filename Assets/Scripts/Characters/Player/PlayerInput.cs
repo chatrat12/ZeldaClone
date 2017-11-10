@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
 
         _player.Movement.Move(new Vector3(h, 0, v).normalized);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _player.Strike();
         }
@@ -25,13 +25,17 @@ public class PlayerInput : MonoBehaviour
         {
             _player.Interact();
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _player.FireArrow();
+        }
 
 #if DEBUG
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Damage.ApplyGenericDamage(_player.gameObject, 2);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             _player.Movement.AutoWalkTo(Vector3.forward * 5);

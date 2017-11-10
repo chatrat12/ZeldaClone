@@ -11,30 +11,32 @@ public class BlinkOnDamaged : MonoBehaviour
     private Color[] _originalColors;
 
     private bool _isDamagedColor = false;
+    private bool _blinking = false;
 
     private void Awake()
     {
         _character = GetComponent<Character>();
         _renderers = GetComponentsInChildren<Renderer>();
         _originalColors = new Color[_renderers.Length];
-        for (int i = 0; i < _renderers.Length; i++)
-        {
-            _originalColors[i] = _renderers[i].material.color;
-        }
+        UpdateOGColors();
         _character.TookDamage += delegate
         {
             TurnDamageColor();
             _lastToggleTime = Time.time;
+            UpdateOGColors();
+            _blinking = true;
         };
     }
 
-
-
-    private void Update()
+    private void UpdateOGColors()
     {
-        
+        for (int i = 0; i < _renderers.Length; i++)
+        {
+            _originalColors[i] = _renderers[i].material.color;
+        }
     }
 
+    
     private void LateUpdate()
     {
         if (!_character.IsAlive)
@@ -43,16 +45,19 @@ public class BlinkOnDamaged : MonoBehaviour
             return;
         }
 
-        if (!_character.CanDamage)
+        if (_blinking)
         {
             if (Time.time - _lastToggleTime >= _toggleSpeed)
             {
                 _lastToggleTime = Time.time;
                 ToggleColor();
             }
+            if(!_character.CanDamage)
+            {
+                _blinking = false;
+                TurnNormalColor();
+            }
         }
-        else
-            TurnNormalColor();
     }
 
     private void ToggleColor()

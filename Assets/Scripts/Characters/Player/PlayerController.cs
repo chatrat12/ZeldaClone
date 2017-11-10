@@ -16,6 +16,7 @@ public class PlayerController : Character
     private Vector3 _lastGroundedPosition;
     private SolidGroundDetector _groundDetector;
     private InteractionFinder _interactionFinder;
+    private ProjectileSpawner _projectileSpawner;
 
     protected override void Awake()
     {
@@ -25,6 +26,7 @@ public class PlayerController : Character
         _lastGroundedPosition = transform.position;
         _groundDetector = GetComponent<SolidGroundDetector>();
         _interactionFinder = GetComponent<InteractionFinder>();
+        _projectileSpawner = GetComponentInChildren<ProjectileSpawner>();
     }
     protected override void Update()
     {
@@ -49,6 +51,10 @@ public class PlayerController : Character
     {
         if (Struck != null)
             Struck(this, null);
+    }
+    public void FireArrow()
+    {
+        _projectileSpawner.SpawnProjectile();
     }
     public void Interact()
     {
