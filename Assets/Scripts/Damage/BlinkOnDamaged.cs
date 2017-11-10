@@ -21,9 +21,9 @@ public class BlinkOnDamaged : MonoBehaviour
         UpdateOGColors();
         _character.TookDamage += delegate
         {
+            UpdateOGColors();
             TurnDamageColor();
             _lastToggleTime = Time.time;
-            UpdateOGColors();
             _blinking = true;
         };
     }
@@ -52,7 +52,7 @@ public class BlinkOnDamaged : MonoBehaviour
                 _lastToggleTime = Time.time;
                 ToggleColor();
             }
-            if(!_character.CanDamage)
+            if(_character.CanDamage)
             {
                 _blinking = false;
                 TurnNormalColor();
