@@ -26,7 +26,7 @@ public class CharacterMovement
     protected Vector3 _knockbackDampeningVelocity = Vector3.zero;
 
     protected Vector3 _moveDirection = Vector3.zero;
-    protected Vector3 _previousMoveDirection;
+    protected Quaternion _targetRotation;
 
     private bool _beingKnockedback
     {
@@ -64,15 +64,14 @@ public class CharacterMovement
         }
         else if (CanMove)
         {
-            _xzVelocity = _moveDirection * _runSpeed;
-
-            if (_lookTowardsVelocity)
+            if (_moveDirection.magnitude >= 0.5f)
             {
-                //if (_moveDirection != Vector3.zero)
-                //_character.transform.rotation = Quaternion.LookRotation(_moveDirection);
+                _xzVelocity = _moveDirection * _runSpeed;
+                _targetRotation = Quaternion.LookRotation(_moveDirection.normalized);
             }
+            else
+                _xzVelocity = Vector3.zero;
         }
-        _previousMoveDirection = _moveDirection;
         _moveDirection = Vector3.zero;
     }
 
@@ -80,8 +79,7 @@ public class CharacterMovement
     {
         if (!_beingKnockedback && CanMove && _lookTowardsVelocity)
         {
-            if (_previousMoveDirection != Vector3.zero)
-                _character.transform.rotation = Quaternion.LookRotation(_previousMoveDirection);
+            _character.transform.rotation = _targetRotation;
         }
     }
 
