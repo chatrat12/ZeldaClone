@@ -12,6 +12,8 @@ public class Popo : Enemy
 
     [SerializeField]
     private CharacterMovement _movement;
+    [SerializeField]
+    private LayerMask _groundLayers;
 
     private GameObject _target;
 
@@ -60,13 +62,14 @@ public class Popo : Enemy
         var direction = _target.transform.position - transform.position;
         direction.y = 0;
         direction.Normalize();
-        _movement.Move(direction);
+        if (FrontIsClear(direction))
+            _movement.Move(direction);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         var player = collision.collider.GetComponent<PlayerController>();
-        if(player != null)
+        if (player != null)
         {
             var direction = _target.transform.position - transform.position;
             direction.y = 0;
@@ -81,7 +84,7 @@ public class Popo : Enemy
     {
         if (!enabled)
             return;
-        if(damageCauser != null)
+        if (damageCauser != null)
         {
             var direction = transform.position - _target.transform.position;
             direction.y = 0;
@@ -94,6 +97,12 @@ public class Popo : Enemy
     protected override void OnDeath()
     {
         Destroy(this.gameObject, 0.3f);
+    }
+
+    private bool FrontIsClear(Vector3 moveDirection)
+    {
+        var origin = transform.position + moveDirection + Vector3.up * 0.2f;
+        return Physics.Raycast(origin, Vector3.down, 0.4f, _groundLayers, QueryTriggerInteraction.Ignore);
     }
 
 }
