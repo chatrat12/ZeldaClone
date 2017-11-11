@@ -9,7 +9,6 @@ public class CameraBoom : MonoBehaviour
     private void Update()
     {
         transform.position = Target.transform.position + Offset;
-        
     }
 
 }

@@ -9,6 +9,7 @@ public class SetupCameraRigOnStart : MonoBehaviour
         // Create boom
         var boomGO = new GameObject("Camera Boom");
         boomGO.transform.position = player.transform.position;
+        boomGO.transform.rotation = transform.rotation;
         var boom = boomGO.AddComponent<CameraBoom>();
         boom.Offset = transform.localPosition;
         boom.Target = player.transform;
