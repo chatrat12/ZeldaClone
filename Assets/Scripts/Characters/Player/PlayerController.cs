@@ -35,10 +35,15 @@ public class PlayerController : Character
         _movement.Update();
         base.Update();
     }
+    protected override void FixedUpdate()
+    {
+        _movement.FixedUpdate();
+        base.FixedUpdate();
+    }
 
     protected override void OnDeath()
     {
-        Debug.Log("you dead!");
+        DungeonLoader.LoadDungeon();
     }
 
     public void WarpToLastGroundedPosition()

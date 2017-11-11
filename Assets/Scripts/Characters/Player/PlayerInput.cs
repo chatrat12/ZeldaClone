@@ -17,15 +17,15 @@ public class PlayerInput : MonoBehaviour
 
         _player.Movement.Move(new Vector3(h, 0, v).normalized);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Strike"))
         {
             _player.Strike();
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetButtonDown("Interact"))
         {
             _player.Interact();
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetButtonDown("Shoot"))
         {
             _player.FireArrow();
         }
