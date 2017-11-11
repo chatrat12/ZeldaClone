@@ -11,7 +11,7 @@ public class DungeonLoader : MonoBehaviour
     public static void LoadDungeon()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("DungeonOne_v2");
-        SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("DungeonOne_v2");
+        SceneManager.LoadSceneAsync("HUD", LoadSceneMode.Additive);
     }
 }
