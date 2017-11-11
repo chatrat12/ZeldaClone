@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class PlayerCamera : MonoBehaviour
 {
+    public Transform Target { get; set; }
+
+
     [SerializeField]
     private float _smoothTime = 0.2f;
 
-    private Transform _target;
-    private Vector3 _offset;
     private Camera _camera;
-
     private Vector3 _dampVelocity = Vector3.zero;
-
     private CameraVolume _currentVolume;
 
     private void Awake()
@@ -19,10 +19,6 @@ public class PlayerCamera : MonoBehaviour
         var player = GetComponentInParent<PlayerController>();
         player.EnteredCameraVolume += Player_EnteredCameraVolume;
         player.LeftCameraVolume += Player_LeftCameraVolume;
-
-        _offset = transform.localPosition;
-        _target = transform.parent;
-        transform.SetParent(null);
     }
 
     
@@ -38,10 +34,9 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        var targetPosition = _target.transform.position + _offset;
+        var targetPosition = Target.transform.position;
         if(_currentVolume != null)
             targetPosition =  _currentVolume.ConstrainTargetPosition(_camera, targetPosition);
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _dampVelocity, _smoothTime);
-        //transform.position = _target.transform.position + _offset;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _dampVelocity, _smoothTime, float.MaxValue, Time.unscaledDeltaTime);
     }
 }
