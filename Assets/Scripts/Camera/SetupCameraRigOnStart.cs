@@ -2,7 +2,7 @@
 
 public class SetupCameraRigOnStart : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         var player = GetComponentInParent<PlayerController>();
 
@@ -12,7 +12,9 @@ public class SetupCameraRigOnStart : MonoBehaviour
         boomGO.transform.rotation = transform.rotation;
         var boom = boomGO.AddComponent<CameraBoom>();
         boom.Offset = transform.localPosition;
-        boom.Target = player.transform;
+
+        var cameraOffset = player.GetComponentInChildren<AdaptiveCameraOffset>();
+        boom.Target = cameraOffset.transform;
 
         // Unchild camera
         transform.SetParent(null);

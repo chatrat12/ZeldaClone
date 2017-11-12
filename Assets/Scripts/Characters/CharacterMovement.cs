@@ -11,6 +11,10 @@ public class CharacterMovement
         get { return _rigidbody.velocity; }
         set { _rigidbody.velocity = value; }
     }
+    public Vector3 PreviousMoveDirection
+    {
+        get { return _previousMoveDirection; }
+    }
 
     [SerializeField]
     protected float _runSpeed = 10f;
@@ -26,6 +30,7 @@ public class CharacterMovement
     protected Vector3 _knockbackDampeningVelocity = Vector3.zero;
 
     protected Vector3 _moveDirection = Vector3.zero;
+    protected Vector3 _previousMoveDirection;
     protected Quaternion _targetRotation;
 
     private bool _beingKnockedback
@@ -72,6 +77,7 @@ public class CharacterMovement
             else
                 _xzVelocity = Vector3.zero;
         }
+        _previousMoveDirection = _moveDirection;
         _moveDirection = Vector3.zero;
     }
 

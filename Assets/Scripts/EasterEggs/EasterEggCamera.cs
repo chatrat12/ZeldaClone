@@ -16,7 +16,7 @@ public class EasterEggCamera : MonoBehaviour
     private PlayerController _player;
     private CameraBoom _boom;
 
-    private void Awake()
+    private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
         _boomTarget = new GameObject("Boom Target");

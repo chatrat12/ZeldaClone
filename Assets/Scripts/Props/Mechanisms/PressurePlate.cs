@@ -16,10 +16,12 @@ public class PressurePlate : Mechanism
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_activated) return;
         if (!_activated && other.GetComponent<PlayerController>())
         {
             GetComponentInChildren<Renderer>().material.color = _activatedColor;
             _animator.SetTrigger("Press");
+            _activated = true;
             OnActivate();
         }
     }
