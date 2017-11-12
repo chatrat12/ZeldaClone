@@ -8,6 +8,8 @@ public class VictoryActivator : MonoBehaviour
     private RuntimeAnimatorController _animController;
     [SerializeField]
     private Transform _cameraTarget;
+    [SerializeField]
+    private Animator _victorScreenAnimator;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,7 +31,7 @@ public class VictoryActivator : MonoBehaviour
     {
         if(type == PlayerAnimationEvents.EventType.FinishedVictory)
         {
-            Debug.Log("we done here");
+            _victorScreenAnimator.enabled = true;
         }
     }
 }
