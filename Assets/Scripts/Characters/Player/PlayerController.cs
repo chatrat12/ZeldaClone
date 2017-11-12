@@ -2,9 +2,13 @@
 
 public class PlayerController : Character
 {
+
     public delegate void CameraVolumeEvent(CameraVolume cameraVolume);
     public event CameraVolumeEvent EnteredCameraVolume;
     public event CameraVolumeEvent LeftCameraVolume;
+
+    public delegate void PlayerEvent(PlayerController sender);
+    public event PlayerEvent RequestedGamePause;
 
     public event System.EventHandler Struck;
 
@@ -12,6 +16,7 @@ public class PlayerController : Character
     private PlayerMovement _movement;
 
     public PlayerMovement Movement { get { return _movement; } }
+    public bool GamePaused { get; set; }
 
     private Vector3 _lastGroundedPosition;
     private SolidGroundDetector _groundDetector;
@@ -30,6 +35,7 @@ public class PlayerController : Character
     }
     protected override void Update()
     {
+        if (GamePaused) return;
         if (_groundDetector.OnSolidGround)
             _lastGroundedPosition = transform.position;
         _movement.Update();
@@ -37,13 +43,14 @@ public class PlayerController : Character
     }
     protected override void FixedUpdate()
     {
+        if (GamePaused) return;
         _movement.FixedUpdate();
         base.FixedUpdate();
     }
 
     protected override void OnDeath()
     {
-        DungeonLoader.LoadDungeon();
+        Time.timeScale = 0f;
     }
 
     public void WarpToLastGroundedPosition()
@@ -54,8 +61,11 @@ public class PlayerController : Character
 
     public void Strike()
     {
-        if (Struck != null)
-            Struck(this, null);
+        if (IsAlive)
+        {
+            if (Struck != null)
+                Struck(this, null);
+        }
     }
     public void FireArrow()
     {
@@ -66,6 +76,14 @@ public class PlayerController : Character
         var interaction = _interactionFinder.GetViableInteraction();
         if (interaction != null)
             interaction.Interact(this);
+    }
+    public void Pause()
+    {
+        if (IsAlive && Time.timeScale > 0)
+        {
+            if (RequestedGamePause != null)
+                RequestedGamePause(this);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -2,7 +2,7 @@
 
 public class SetupCameraRigOnStart : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         var player = GetComponentInParent<PlayerController>();
 

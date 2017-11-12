@@ -4,6 +4,7 @@
 public class PlayerCamera : MonoBehaviour
 {
     public Transform Target { get; set; }
+    public bool Clamp { get; set; }
 
 
     [SerializeField]
@@ -17,6 +18,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
+        Clamp = true;
         _camera = GetComponent<Camera>();
         var player = GetComponentInParent<PlayerController>();
         player.EnteredCameraVolume += Player_EnteredCameraVolume;
@@ -37,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
     private void LateUpdate()
     {
         var targetPosition = Target.transform.position;
-        if(_currentVolume != null)
+        if(Clamp && _currentVolume != null)
             targetPosition =  _currentVolume.ConstrainTargetPosition(_camera, targetPosition);
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _transformDampVelocity, _smoothTime, float.MaxValue, Time.unscaledDeltaTime);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Target.transform.rotation, _maxRotationDelta);

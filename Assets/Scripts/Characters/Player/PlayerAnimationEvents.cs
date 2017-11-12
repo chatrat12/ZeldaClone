@@ -20,6 +20,15 @@ public class PlayerAnimationEvents : MonoBehaviour
         TriggerEvent(EventType.CloseStrikeWindow);
     }
 
+    private void TriggerFinishedDeath()
+    {
+        TriggerEvent(EventType.FinishedDeath);
+    }
+    private void TriggerFinishedVictory()
+    {
+        TriggerEvent(EventType.FinishedVictory);
+    }
+
     private void TriggerEvent(EventType type)
     {
         if (EventTriggered != null)
@@ -31,6 +40,8 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         Strike,
         OpenStrikeWindow,
-        CloseStrikeWindow
+        CloseStrikeWindow,
+        FinishedDeath,
+        FinishedVictory
     }
 }
