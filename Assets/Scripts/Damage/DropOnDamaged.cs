@@ -14,7 +14,8 @@ public class DropOnDamaged : MonoBehaviour
     {
         if(baseDamage > 0f)
         {
-            Instantiate(_objectToDrop, transform.position, transform.rotation);
+            var newObject = Instantiate(_objectToDrop, transform.position, transform.rotation);
+            Destroy(newObject, 10);
         }
     }
 }

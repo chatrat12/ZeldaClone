@@ -16,7 +16,8 @@ public class DropRandomOnDamaged : MonoBehaviour
         if (baseDamage > 0f)
         {
             var objectToDrop = _objectsToDrop[Random.Range(0, _objectsToDrop.Length)];
-            Instantiate(objectToDrop, transform.position, transform.rotation);
+            var newObject = Instantiate(objectToDrop, transform.position, transform.rotation);
+            Destroy(newObject, 10);
         }
     }
 }
