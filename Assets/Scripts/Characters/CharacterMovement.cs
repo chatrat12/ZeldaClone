@@ -77,8 +77,6 @@ public class CharacterMovement
 
     public virtual void FixedUpdate()
     {
-        Debug.Log(_rigidbody.velocity);
-
         if (!_beingKnockedback && CanMove && _lookTowardsVelocity)
         {
             _character.transform.rotation = _targetRotation;
