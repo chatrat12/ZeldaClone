@@ -10,10 +10,4 @@ public class CameraBoom : MonoBehaviour
     {
         transform.position = Target.transform.position + Offset;
     }
-
-    private void OnDestroy()
-    {
-        Debug.Log(this.gameObject.scene.name);
-    }
-
 }
