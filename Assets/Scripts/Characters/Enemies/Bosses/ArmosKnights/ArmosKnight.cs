@@ -14,6 +14,7 @@ public class ArmosKnight : Enemy
         set { _modelTransform.localPosition = Vector3.up * value; }
     }
 
+    private Rigidbody _rigidbody;
     private Vector3 _dampVelocity = Vector3.zero;
     private Transform _modelTransform;
 
@@ -21,15 +22,20 @@ public class ArmosKnight : Enemy
     {
         base.Awake();
         _modelTransform = transform.GetChild(0);
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     protected override void Update()
     {
+        base.Update();
         ApplyJumpCurve();
+    }
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
         MoveTowardsTarget();
     }
 
-   
     private void ApplyJumpCurve()
     {
         _height = _jumpCurve.Evaluate(Time.time % _jumpDuration);
@@ -42,12 +48,15 @@ public class ArmosKnight : Enemy
         direction.Normalize();
         var speed = _height / _maxJumpHeight * Routine.KnightMoveSpeed;
 
-        var translation = direction * speed * Time.deltaTime;
+        var translation = direction * speed * Time.fixedDeltaTime;
 
         if (translation.magnitude > targetVector.magnitude) // Prevent overshoot jitter.
-            transform.position = TargetTransform.position;
+            _rigidbody.position = TargetTransform.position;
         else
-            transform.position += translation;
+        {
+            Debug.DrawLine(transform.position, transform.position + direction * speed, Color.blue);
+            _rigidbody.velocity = direction * speed;
+        }
     }
 
     protected override void OnTookDamage(float baseDamage, GameObject damageCauser, DamageType damageType)

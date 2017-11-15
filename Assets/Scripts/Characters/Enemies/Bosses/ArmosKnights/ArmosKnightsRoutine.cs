@@ -174,7 +174,7 @@ public class ArmosKnightsRoutine : MonoBehaviour
         if (_targets == null) return;
         foreach(var target in _targets)
         {
-            //Gizmos.DrawSphere(target.position, 0.25f);
+            Gizmos.DrawSphere(target.position, 0.25f);
         }
     }
 #endif
