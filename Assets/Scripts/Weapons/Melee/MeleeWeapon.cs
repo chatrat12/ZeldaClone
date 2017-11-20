@@ -12,6 +12,8 @@ public abstract class MeleeWeapon : Weapon
     private bool _allowMultiHitOnSingleObject = false;
     [SerializeField]
     private float _multiHitCooldown = 0.2f;
+    [SerializeField]
+    private float _knockbackForce = 15f;
 
     protected List<StrikeInfo> _strikeHistory = new List<StrikeInfo>();
     protected bool _attacking = false;
@@ -42,8 +44,8 @@ public abstract class MeleeWeapon : Weapon
     protected virtual void DamageObject(GameObject obj, RaycastHit? hitInfo)
     {
         // TODO: Expose the rest of this.
-        var direction = obj.transform.position - _owner.transform.position;
-        Damage.ApplyPointDamage(obj, _baseDamage, _owner, direction, 600, hitInfo);
+        var direction = (obj.transform.position - _owner.transform.position).normalized;
+        Damage.ApplyPointDamage(obj, _baseDamage, _owner, direction, _knockbackForce, hitInfo);
     }
     
     private bool CanStrike(GameObject obj)

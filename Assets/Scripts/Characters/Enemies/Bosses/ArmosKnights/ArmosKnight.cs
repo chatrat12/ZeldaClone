@@ -17,6 +17,8 @@ public class ArmosKnight : Enemy
     private Rigidbody _rigidbody;
     private Vector3 _dampVelocity = Vector3.zero;
     private Transform _modelTransform;
+    private KnockbackController _knockback = new KnockbackController();
+
 
     protected override void Awake()
     {
@@ -29,11 +31,15 @@ public class ArmosKnight : Enemy
     {
         base.Update();
         ApplyJumpCurve();
+        if (_knockback.BeingKnockedback)
+            _rigidbody.velocity = _knockback.GetVelocity(_rigidbody.velocity);
+        else
+            MoveTowardsTarget();
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        MoveTowardsTarget();
+
     }
 
     private void ApplyJumpCurve()
@@ -54,18 +60,17 @@ public class ArmosKnight : Enemy
             _rigidbody.position = TargetTransform.position;
         else
         {
-            Debug.DrawLine(transform.position, transform.position + direction * speed, Color.blue);
             _rigidbody.velocity = direction * speed;
         }
     }
 
-    protected override void OnTookDamage(float baseDamage, GameObject damageCauser, DamageType damageType)
-    {
-        Debug.Log("TookDamage");
-        base.OnTookDamage(baseDamage, damageCauser, damageType);
-    }
     protected override void OnTookPointDamage(float baseDamage, GameObject damageCauser, Vector3 hitDirection, float force, RaycastHit? hitInfo)
     {
+        if (CanDamage)
+        {
+            _rigidbody.velocity = hitDirection * force;
+            _knockback.Knockback(InvincibleTimeframe);
+        }
         base.OnTookPointDamage(baseDamage, damageCauser, hitDirection, force, hitInfo);
     }
 
