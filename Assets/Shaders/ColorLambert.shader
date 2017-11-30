@@ -9,7 +9,7 @@
 	{
 		Tags { "RenderType" = "Opaque" }
 
-		ColorMask RGB
+		
 
 		CGPROGRAM
 		#pragma surface surf Lambert
