@@ -76,11 +76,10 @@ public class SwampKid : Damagable
 
     private void MakePlayerBlack()
     {
-        Debug.Log("lets go");
         var renderers = _player.GetComponentsInChildren<Renderer>();
         foreach(var r in renderers)
         {
-            r.material.color = Color.black;
+            r.material.color = r.material.color * 0.15f;
         }
     }
 
