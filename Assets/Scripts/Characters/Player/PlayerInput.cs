@@ -35,6 +35,10 @@ public class PlayerInput : MonoBehaviour
             _player.FireArrow();
         if (Input.GetButtonDown(PAUSE))
             _player.Pause();
+#if UNITY_WEBGL
+        if (Input.GetKeyDown(KeyCode.P))
+            _player.Pause();
+#endif
 
 #if DEBUG
         if (Input.GetKeyDown(KeyCode.Q))
